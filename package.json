@@ -1,0 +1,1 @@
+{"description":"Two Pollinations models hold a real back-and-forth conversation on a topic you pick. Bring your own Pollen.","name":"ai-to-ai","private":true,"scripts":{"test":"node tests/logic.test.mjs"},"version":"1.0.0"}
