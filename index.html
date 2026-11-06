@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AI to AI - two models talk it out</title>
+<meta name="description" content="Pick a topic, pick two AI personas and models, and watch them hold a real back-and-forth conversation. Bring your own Pollen.">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="top">
+  <div class="wrap">
+    <h1>AI <span class="arrow">to</span> AI</h1>
+    <p class="tagline">Pick a topic. Two models take it from there, turn by turn, live.</p>
+  </div>
+</header>
+
+<main class="wrap">
+  <section class="card key-card">
+    <label for="keyInput"><strong>Your Pollinations key (bring your own Pollen)</strong></label>
+    <div class="key-row">
+      <input id="keyInput" type="password" placeholder="sk_... or pk_..." autocomplete="off" spellcheck="false">
+      <button id="saveKeyBtn" type="button">Save key</button>
+      <button id="testKeyBtn" type="button" class="ghost">Test key</button>
+      <button id="clearKeyBtn" type="button" class="ghost">Clear</button>
+    </div>
+    <p id="keyStatus" class="hint">No key saved. The app runs in demo mode with a scripted sample until you add one. Get a key at <a href="https://enter.pollinations.ai/keys" target="_blank" rel="noopener">enter.pollinations.ai/keys</a>. Your key stays in this browser (localStorage) and is only ever sent to gen.pollinations.ai.</p>
+  </section>
+
+  <section class="setup grid">
+    <div class="card agent agent-a">
+      <h2><span class="dot dot-a"></span> Agent A</h2>
+      <label>Persona
+        <select id="personaA"></select>
+      </label>
+      <label>Character brief
+        <textarea id="promptA" rows="3"></textarea>
+      </label>
+      <label>Model
+        <select id="modelA"></select>
+      </label>
+      <input id="customModelA" class="custom-model" type="text" placeholder="Custom model id, e.g. openai/gpt-5.4" hidden>
+    </div>
+
+    <div class="card agent agent-b">
+      <h2><span class="dot dot-b"></span> Agent B</h2>
+      <label>Persona
+        <select id="personaB"></select>
+      </label>
+      <label>Character brief
+        <textarea id="promptB" rows="3"></textarea>
+      </label>
+      <label>Model
+        <select id="modelB"></select>
+      </label>
+      <input id="customModelB" class="custom-model" type="text" placeholder="Custom model id, e.g. deepseek/deepseek-v4-flash" hidden>
+    </div>
+  </section>
+
+  <section class="card controls">
+    <label class="topic-label">Topic
+      <input id="topicInput" type="text" value="Should a small town replace its bus fleet with self-driving shuttles?" maxlength="220">
+    </label>
+    <div class="quick-topics" id="quickTopics"></div>
+    <div class="control-row">
+      <label>Turns
+        <input id="turnsInput" type="number" min="2" max="30" step="2" value="8">
+      </label>
+      <button id="startBtn" type="button" class="primary">Start conversation</button>
+      <button id="stopBtn" type="button" class="danger" disabled>Stop</button>
+      <button id="downloadBtn" type="button" class="ghost" disabled>Download transcript</button>
+    </div>
+    <div class="control-row twist-row">
+      <input id="twistInput" type="text" placeholder="Throw in a twist mid-conversation, e.g. now both of you argue the opposite side" maxlength="220">
+      <button id="twistBtn" type="button">Inject twist</button>
+    </div>
+    <p id="statusLine" class="hint" role="status"></p>
+  </section>
+
+  <section class="stats card" id="statsBar" aria-live="polite">
+    <div><span class="stat-num" id="statTurns">0</span><span class="stat-label">turns</span></div>
+    <div><span class="stat-num" id="statTokens">0</span><span class="stat-label">tokens</span></div>
+    <div><span class="stat-num" id="statCost">0</span><span class="stat-label">est. Pollen</span></div>
+    <div><span class="stat-num" id="statLatency">0 ms</span><span class="stat-label">total latency</span></div>
+    <div><span class="stat-num" id="statSplit">0 / 0</span><span class="stat-label">tokens A / B</span></div>
+  </section>
+
+  <div id="demoBanner" class="demo-banner" hidden>DEMO MODE - scripted sample exchange, not live model output. Add your Pollinations key above for a real conversation.</div>
+
+  <section id="chat" class="chat" aria-live="polite"></section>
+
+  <footer class="foot">
+    <p>Every live turn is a real call to <code>gen.pollinations.ai/v1/chat/completions</code> with your key, billed to your Pollen balance at the model rates shown in the public model list. Cost figures here are estimates from token counts. No key, no calls: demo mode is fully scripted and spends nothing.</p>
+    <p><a href="https://pollinations.ai" target="_blank" rel="noopener">pollinations.ai</a> - <a href="https://enter.pollinations.ai/keys" target="_blank" rel="noopener">get a key</a> - <a href="https://gen.pollinations.ai/v1/models" target="_blank" rel="noopener">model list and prices</a></p>
+  </footer>
+</main>
+
+<script src="logic.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
